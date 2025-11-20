@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bay Area News | Earthquake & Tsunami Coverage</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d3748;
+            --accent: #e53e3e;
+            --light: #f7fafc;
+            --dark: #2d3748;
+            --warning: #dd6b20;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .breaking-news {
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #cbd5e0;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .article-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .article-content {
+            padding: 1.5rem;
+        }
+        
+        .article-content h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .article-meta {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta span {
+            margin-right: 1rem;
+        }
+        
+        .fact-check {
+            background-color: #e6fffa;
+            border-left: 4px solid #38b2ac;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .fake-news-alert {
+            background-color: #fed7d7;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .fake-news-alert h3, .fact-check h3 {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .fake-news-alert h3::before {
+            content: "⚠️";
+            margin-right: 0.5rem;
+        }
+        
+        .fact-check h3::before {
+            content: "✅";
+            margin-right: 0.5rem;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .sidebar-article {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .sidebar-article:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .sidebar-article h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-article p {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+        
+        .safety-tips {
+            background-color: #fffaf0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .safety-tips h3 {
+            color: var(--warning);
+            margin-bottom: 1rem;
+        }
+        
+        .safety-tips ul {
+            padding-left: 1.5rem;
+        }
+        
+        .safety-tips li {
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #4a5568;
+            margin-top: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Bay Area News</div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Weather</a></li>
+                        <li><a href="#">Traffic</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <div class="breaking-news">
+        <div class="container">
+            BREAKING: 7.8 Magnitude Earthquake Hits San Francisco Bay Area, Tsunami Warning Issued
+        </div>
+    </div>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Major Earthquake Strikes San Francisco Coast</h1>
+            <p>Tsunami warnings issued for entire Bay Area as 7.8 magnitude quake causes widespread damage. Emergency services responding.</p>
+        </div>
+    </section>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="content-left">
+                <article class="article-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Earthquake damage" class="article-image">
+                    <div class="article-content">
+                        <h2>Major Earthquake Causes Tsunami Along San Francisco Coast</h2>
+                        <div class="article-meta">
+                            <span>By Jennifer Martinez</span>
+                            <span>Updated 2 hours ago</span>
+                            <span>Science & Environment</span>
+                        </div>
+                        
+                        <p>A powerful 7.8 magnitude earthquake struck off the coast of San Francisco early this morning, generating a tsunami that has caused significant damage along the coastline. The quake, which occurred at 5:12 AM local time, was centered about 20 miles west of the Golden Gate Bridge at a depth of 8 miles.</p>
+                        
+                        <p>Emergency services are responding to multiple incidents across the Bay Area, with initial reports indicating structural damage to buildings, bridge closures, and power outages affecting approximately 500,000 residents. The tsunami that followed reached heights of up to 15 feet in some coastal areas.</p>
+                        
+                        <div class="fake-news-alert">
+                            <h3>Fake News Alert</h3>
+                            <p>Misinformation is spreading online claiming that the earthquake was caused by "weather weapons," "government experiments," or "planetary alignments." These claims are completely false and not supported by scientific evidence.</p>
+                        </div>
+                        
+                        <h3>The Real Science: How Earthquakes Actually Occur</h3>
+                        
+                        <p>Earthquakes are natural geological events caused by the sudden release of energy in the Earth's crust. Here's what actually happens:</p>
+                        
+                        <h4>Tectonic Plate Movement</h4>
+                        <p>The Earth's outer shell (lithosphere) is divided into several large plates that are constantly moving, albeit very slowly. The San Francisco Bay Area sits near the boundary of two major plates: the Pacific Plate and the North American Plate.</p>
+                        
+                        <h4>The San Andreas Fault System</h4>
+                        <p>The region is dominated by the San Andreas Fault, a transform boundary where these two plates slide past each other horizontally. The Pacific Plate moves northwest relative to the North American Plate at a rate of about 2 inches per year.</p>
+                        
+                        <h4>Stress Accumulation and Release</h4>
+                        <p>As the plates move, friction locks them together at fault lines, causing stress to build up over time. When the accumulated stress exceeds the strength of the rocks, the fault suddenly slips, releasing enormous amounts of energy in the form of seismic waves that we feel as an earthquake.</p>
+                        
+                        <div class="fact-check">
+                            <h3>Scientific Facts</h3>
+                            <p><strong>Myth:</strong> Earthquakes are caused by weather or atmospheric conditions.<br>
+                            <strong>Fact:</strong> Earthquakes originate deep within the Earth's crust and are unrelated to surface weather patterns.</p>
+                            
+                            <p><strong>Myth:</strong> Earthquakes can be predicted with precision.<br>
+                            <strong>Fact:</strong> While we can identify earthquake-prone areas, science cannot currently predict the exact time, location, and magnitude of future earthquakes.</p>
+                            
+                            <p><strong>Myth:</strong> California will eventually "fall into the ocean" due to earthquakes.<br>
+                            <strong>Fact:</strong> This is scientifically impossible. The tectonic movement is horizontal, not vertical separation.</p>
+                        </div>
+                        
+                        <h4>Aftereffects: Aftershocks and Tsunamis</h4>
+                        <p>Following a major earthquake, aftershocks typically occur as the crust adjusts to the new stress conditions. When an earthquake happens under the ocean floor, it can displace large volumes of water, generating tsunami waves that travel across the ocean at high speeds.</p>
+                        
+                        <p>Scientists at the US Geological Survey emphasize that understanding the real causes of earthquakes is crucial for preparedness and developing effective early warning systems.</p>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="sidebar">
+                <h3>Latest Updates</h3>
+                <div class="sidebar-article">
+                    <h4>Tsunami Warning Extended</h4>
+                    <p>Coastal evacuations ongoing as tsunami warning remains in effect until 4 PM.</p>
+                </div>
+                <div class="sidebar-article">
+                    <h4>Emergency Shelters Open</h4>
+                    <p>15 emergency shelters now operational across the Bay Area.</p>
+                </div>
+                <div class="sidebar-article">
+                    <h4>Power Restoration Efforts</h4>
+                    <p>PG&E reports 40% of affected customers now have power restored.</p>
+                </div>
+                <div class="sidebar-article">
+                    <h4>Transportation Updates</h4>
+                    <p>BART service suspended, limited bus service operating on key routes.</p>
+                </div>
+                
+                <div class="safety-tips">
+                    <h3>Earthquake Safety Tips</h3>
+                    <ul>
+                        <li>Drop, Cover, and Hold On during shaking</li>
+                        <li>If near coast, move to higher ground immediately after shaking stops</li>
+                        <li>Check for injuries and damage after shaking stops</li>
+                        <li>Be prepared for aftershocks</li>
+                        <li>Listen to official information sources</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Bay Area News</h3>
+                    <p>Your trusted source for Bay Area news and information.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Latest News</a></li>
+                        <li><a href="#">Weather</a></li>
+                        <li><a href="#">Traffic</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Emergency Resources</h3>
+                    <ul>
+                        <li><a href="#">Red Cross</a></li>
+                        <li><a href="#">FEMA</a></li>
+                        <li><a href="#">USGS Earthquake Info</a></li>
+                        <li><a href="#">Tsunami Warning Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Bay Area News. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
